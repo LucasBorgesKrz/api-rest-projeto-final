@@ -1,0 +1,34 @@
+{
+  "name": "api-projeto-final",
+  "version": "1.0.0",
+  "description": "API REST final: CRUD de produtos, paginação/filtros, JWT + RBAC, tratamento global de erros e Swagger",
+  "type": "module",
+  "main": "src/server.js",
+  "scripts": {
+    "setup": "node scripts/setup-env.js",
+    "prestart": "node scripts/setup-env.js",
+    "start": "node src/server.js",
+    "predev": "node scripts/setup-env.js",
+    "dev": "node --watch src/server.js",
+    "test": "node --test",
+    "test:collection": "node scripts/run-collection.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "dotenv": "^18.0.10",
+    "express": "^5.3.0",
+    "express-rate-limit": "^8.7.5",
+    "helmet": "^8.3.0",
+    "jsonwebtoken": "^9.0.3",
+    "swagger-ui-express": "^5.0.1",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@apidevtools/swagger-parser": "^13.1.0",
+    "newman": "^6.2.3"
+  }
+}

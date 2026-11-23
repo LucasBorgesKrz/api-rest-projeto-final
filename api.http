@@ -1,0 +1,109 @@
+### Requisições de teste (VS Code "REST Client"; no Postman/Insomnia use a coleção em docs/postman).
+### A URL base já aponta para o DEPLOY na nuvem. Para testar localmente, troque pela linha comentada.
+@baseUrl = https://SEU-APP.onrender.com
+# @baseUrl = http://localhost:3000
+
+### Credenciais do ADMIN: NÃO ficam no repositório. Preencha com os valores informados pelo responsável
+### (na nuvem: variáveis ADMIN_EMAIL / ADMIN_PASSWORD; local: arquivo .env). Não commite este preenchimento.
+@adminEmail = admin@exemplo.com
+@adminSenha = PREENCHA_AQUI
+
+### Dica: a 1ª requisição no plano gratuito pode demorar ~30-60 s ("acordando" a API). Faça o health check antes.
+
+### 0) Health check (aquecimento)
+GET {{baseUrl}}/health
+
+###############################  SUCESSO  ###############################
+
+### 1) Cadastro -> 201 (sem senha na resposta)
+# @name cadastro
+POST {{baseUrl}}/register
+Content-Type: application/json
+
+{ "nome": "Aluno Teste", "email": "aluno.teste@exemplo.com", "senha": "Senha123" }
+
+### 2) Login -> 200 com token JWT
+# @name login
+POST {{baseUrl}}/login
+Content-Type: application/json
+
+{ "email": "aluno.teste@exemplo.com", "senha": "Senha123" }
+
+### 3) Rota protegida -> 200
+GET {{baseUrl}}/perfil
+Authorization: Bearer {{login.response.body.token}}
+
+### 4) Criar produto (autenticado) -> 201
+# @name produto
+POST {{baseUrl}}/produtos
+Authorization: Bearer {{login.response.body.token}}
+Content-Type: application/json
+
+{ "nome": "Notebook Gamer", "categoria": "eletronicos", "preco": 4999.9, "estoque": 12 }
+
+### 5) Listar com paginação + filtros + ordenação -> 200 (veja meta e links)
+GET {{baseUrl}}/produtos?page=1&limit=5&categoria=eletronicos&ativo=true&minPrice=100&maxPrice=3000&sort=preco&order=desc
+
+### 6) Buscar por id -> 200
+GET {{baseUrl}}/produtos/{{produto.response.body.id}}
+
+### 7) Atualizar (PUT) -> 200
+PUT {{baseUrl}}/produtos/{{produto.response.body.id}}
+Authorization: Bearer {{login.response.body.token}}
+Content-Type: application/json
+
+{ "nome": "Notebook Gamer Pro", "categoria": "eletronicos", "preco": 5499.9, "estoque": 8, "ativo": true }
+
+### 8) Atualizar parcialmente (PATCH) -> 200
+PATCH {{baseUrl}}/produtos/{{produto.response.body.id}}
+Authorization: Bearer {{login.response.body.token}}
+Content-Type: application/json
+
+{ "estoque": 20 }
+
+###############################  ERROS ESPERADOS  ###############################
+
+### 9) Sem token -> 401
+POST {{baseUrl}}/produtos
+Content-Type: application/json
+
+{ "nome": "Teclado", "categoria": "eletronicos", "preco": 100 }
+
+### 10) Perfil errado (comum tenta excluir) -> 403
+DELETE {{baseUrl}}/produtos/{{produto.response.body.id}}
+Authorization: Bearer {{login.response.body.token}}
+
+### 11) Dados inválidos -> 400
+POST {{baseUrl}}/produtos
+Authorization: Bearer {{login.response.body.token}}
+Content-Type: application/json
+
+{ "nome": "X", "categoria": "brinquedos", "preco": -5 }
+
+### 12) Não existe -> 404
+GET {{baseUrl}}/produtos/999999
+
+### 13) E-mail repetido -> 409
+POST {{baseUrl}}/register
+Content-Type: application/json
+
+{ "nome": "Aluno Teste", "email": "aluno.teste@exemplo.com", "senha": "Senha123" }
+
+###############################  ADMIN (RBAC)  ###############################
+
+### 14) Login do admin -> 200
+# @name loginAdmin
+POST {{baseUrl}}/login
+Content-Type: application/json
+
+{ "email": "{{adminEmail}}", "senha": "{{adminSenha}}" }
+
+### 15) Admin lista usuários -> 200
+GET {{baseUrl}}/usuarios
+Authorization: Bearer {{loginAdmin.response.body.token}}
+
+### 16) Admin exclui o produto -> 204
+DELETE {{baseUrl}}/produtos/{{produto.response.body.id}}
+Authorization: Bearer {{loginAdmin.response.body.token}}
+
+### Documentação interativa (Swagger UI): {{baseUrl}}/api-docs

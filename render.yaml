@@ -1,0 +1,32 @@
+# Blueprint do Render (https://render.com): publica a API como Web Service.
+# Como usar: no painel do Render -> New -> Blueprint -> escolha este repositório.
+# O Render lê este arquivo, pede os valores marcados com `sync: false` e faz o deploy.
+#
+# NENHUM segredo fica neste arquivo: o JWT_SECRET é gerado pelo próprio Render
+# (generateValue) e o admin é informado no painel.
+services:
+  - type: web
+    name: api-projeto-final
+    runtime: node
+    plan: free
+    buildCommand: npm ci --omit=dev
+    startCommand: node src/server.js
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: NODE_VERSION
+        value: "22"
+      - key: JWT_SECRET
+        generateValue: true # segredo aleatório criado pelo Render; nunca vai para o Git
+      - key: JWT_EXPIRES_IN
+        value: 1h
+      - key: TRUST_PROXY
+        value: "1" # atrás do balanceador do Render: enxerga o IP real (rate limit)
+      - key: ADMIN_NOME
+        value: Administrador
+      - key: ADMIN_EMAIL
+        sync: false # você informa no painel
+      - key: ADMIN_PASSWORD
+        sync: false # você informa no painel (8+ caracteres, com letra e número)

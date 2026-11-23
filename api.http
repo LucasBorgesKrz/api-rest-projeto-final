@@ -1,6 +1,6 @@
 ### Requisições de teste (VS Code "REST Client"; no Postman/Insomnia use a coleção em docs/postman).
 ### A URL base já aponta para o DEPLOY na nuvem. Para testar localmente, troque pela linha comentada.
-@baseUrl = https://SEU-APP.onrender.com
+@baseUrl = https://api-projeto-final-45mx.onrender.com
 # @baseUrl = http://localhost:3000
 
 ### Credenciais do ADMIN: NÃO ficam no repositório. Preencha com os valores informados pelo responsável

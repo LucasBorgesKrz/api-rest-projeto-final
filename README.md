@@ -4,8 +4,8 @@ API REST em **Node.js + Express 5** que integra os conceitos do semestre: **CRUD
 
 | | |
 | --- | --- |
-| 🌐 **API em produção** | https://SEU-APP.onrender.com |
-| 📖 **Swagger (produção)** | https://SEU-APP.onrender.com/api-docs |
+| 🌐 **API em produção** | https://api-projeto-final-45mx.onrender.com |
+| 📖 **Swagger (produção)** | https://api-projeto-final-45mx.onrender.com/api-docs |
 | 🧪 **Coleção de testes** | [`docs/postman/`](docs/postman) (Postman/Insomnia) · [`api.http`](api.http) (já aponta para a nuvem) |
 | 🖼️ **Evidências (prints)** | [`docs/evidencias/`](docs/evidencias) · [galeria abaixo](#evidências-de-funcionamento) |
 | 🎤 **Roteiro da apresentação** | [`docs/APRESENTACAO.md`](docs/APRESENTACAO.md) |
@@ -135,6 +135,14 @@ Capturas feitas **contra a API em execução** (senhas mascaradas e tokens trunc
 | --- | --- |
 | ![](docs/evidencias/16-testes-automatizados.png) | ![](docs/evidencias/17-colecao-postman-newman.png) |
 
+### 🌐 API em produção (Render)
+
+Respostas reais da URL pública e o Swagger publicado:
+
+| Respostas da API publicada | Swagger em produção |
+| --- | --- |
+| ![](docs/evidencias/18-producao-respostas-reais.png) | ![](docs/evidencias/19-swagger-producao.png) |
+
 ## Coleção de testes (Postman / Insomnia)
 
 Em [`docs/postman/`](docs/postman):
@@ -148,7 +156,7 @@ Em [`docs/postman/`](docs/postman):
 - `local.postman_environment.json` e `producao.postman_environment.json`: ambientes com `baseUrl`. Preencha `adminEmail` e `adminSenha` no ambiente (a senha do admin **não** fica no repositório).
 
 **Como usar:** *Import* da coleção e de um ambiente → selecionar o ambiente → botão direito na coleção → *Run collection*. No Insomnia: *Import* do mesmo arquivo.
-**Pelo terminal:** `npm run test:collection` (API temporária local) ou `npm run test:collection -- https://SEU-APP.onrender.com` (contra a nuvem; defina `ADMIN_EMAIL` e `ADMIN_PASSWORD` do admin da nuvem no ambiente).
+**Pelo terminal:** `npm run test:collection` (API temporária local) ou `npm run test:collection -- https://api-projeto-final-45mx.onrender.com` (contra a nuvem; defina `ADMIN_EMAIL` e `ADMIN_PASSWORD` do admin da nuvem no ambiente).
 
 ## Revisão de código (code review): funcionalidades integradas
 

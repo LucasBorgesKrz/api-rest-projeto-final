@@ -1,10 +1,10 @@
 # Roteiro da apresentação (pitch de 10 minutos)
 
-**API em produção:** https://SEU-APP.onrender.com  ·  **Swagger:** https://SEU-APP.onrender.com/api-docs
+**API em produção:** https://api-projeto-final-45mx.onrender.com  ·  **Swagger:** https://api-projeto-final-45mx.onrender.com/api-docs
 
 ## Antes de começar (faça 10 minutos antes)
 
-- [ ] **Aquecer a API:** abra `https://SEU-APP.onrender.com/health`. No plano gratuito a API "dorme" após ~15 min parada e a 1ª requisição leva de 30 a 60 s.
+- [ ] **Aquecer a API:** abra `https://api-projeto-final-45mx.onrender.com/health`. No plano gratuito a API "dorme" após ~15 min parada e a 1ª requisição leva de 30 a 60 s.
 - [ ] Abrir em abas prontas: Swagger (`/api-docs`), repositório no GitHub, `docs/evidencias/` e a coleção importada no Postman/Insomnia.
 - [ ] Ter à mão o **e-mail e a senha do admin** (variáveis `ADMIN_EMAIL` / `ADMIN_PASSWORD` do Render). A senha **não** está no repositório: não a mostre em tela.
 - [ ] Combinar o fallback: se a internet cair, rodar `npm start` local e usar os prints de `docs/evidencias/`.
